@@ -17,69 +17,28 @@ let questionBank = [
 ];
 
 let answerBank = [];
-let i = 0;
+// let i = 0;
 
 // Devani loves listening to Ludovico Einaudi while coding, devouring Yak Momos for brunch, prefers Tennis over any other sport, and is amazing at dropping mad puns at inopportune times.
 const printAnswers = function() {
-  process.stdout.write(`${answerBank[1]} likes listening to ${answerBank[3]} while ${answerBank[2]} and thinks Node.js is ${answerBank[0]}. ${answerBank[1]} likes to eat ${answerBank[5]} at ${answerBank[4]} while playing ${answerBank[6]} and being amazing at ${answerBank[7]}.`);
+  // console.log('inside printAnswers')
+  process.stdout.write(`${answerBank[1]} likes listening to ${answerBank[3]} while ${answerBank[2]} and thinks Node.js is ${answerBank[0]}. ${answerBank[1]} likes to eat ${answerBank[5]} at ${answerBank[4]} while playing ${answerBank[6]} and being amazing at ${answerBank[7]}.\n`);
 };
 
-rl.question(questionBank[i] + ' ', (answer) => {
-  answerBank[i] = answer;
-  // console.log('questionBank[i]', questionBank[i]);
-  // console.log('answerBank[i]', answerBank[i]);
-  i++;
-  rl.question(questionBank[i] + ' ', (answer) => {
-    answerBank[i] = answer;
-    // console.log('questionBank[i]', questionBank[i]);
-    // console.log('answerBank[i]', answerBank[i]);
-    i++;
-    rl.question(questionBank[i] + ' ', (answer) => {
-      answerBank[i] = answer;
-      // console.log('questionBank[i]', questionBank[i]);
-      // console.log('answerBank[i]', answerBank[i]);
-      i++;
-      rl.question(questionBank[i] + ' ', (answer) => {
-        answerBank[i] = answer;
-        // console.log('questionBank[i]', questionBank[i]);
-        // console.log('answerBank[i]', answerBank[i]);
-        i++;
-        rl.question(questionBank[i] + ' ', (answer) => {
-          answerBank[i] = answer;
-          // console.log('questionBank[i]', questionBank[i]);
-          // console.log('answerBank[i]', answerBank[i]);
-          i++;
-          rl.question(questionBank[i] + ' ', (answer) => {
-            answerBank[i] = answer;
-            // console.log('questionBank[i]', questionBank[i]);
-            // console.log('answerBank[i]', answerBank[i]);
-            i++;
-            rl.question(questionBank[i] + ' ', (answer) => {
-              answerBank[i] = answer;
-              // console.log('questionBank[i]', questionBank[i]);
-              // console.log('answerBank[i]', answerBank[i]);
-              i++;
-              rl.question(questionBank[i] + ' ', (answer) => {
-                answerBank[i] = answer;
-                // console.log('questionBank[i]', questionBank[i]);
-                // console.log('answerBank[i]', answerBank[i]);
-                printAnswers();
-                rl.close();
-              });
-            });
-          });
-        });
-      });
-    });
-  });
-});
+const askQuestions = function(arr, qNum) {
+  // base case is qNum === 7
+  rl.question(arr[qNum] + " ", (answer) => {
+    if (qNum >= arr.length - 1) {
+      // console.log('before printAnswers()')
+      // console.log('answerBank', answerBank)
+      answerBank[qNum] = answer;
+      printAnswers();
+      return rl.close();
+    }
+    answerBank[qNum] = answer;
+    // console.log('qNum', qNum);
+    askQuestions(arr, ++qNum);
+  })
+}
 
-// const saveAnswer = function(answer) {
-//   answerBank[i] = answer;
-//   if (i >= answerBank.length) {
-//     printAnswers();
-//     rl.close();
-//   }
-//   i++;
-//   saveAnswer()
-// }
+askQuestions(questionBank, 0);
