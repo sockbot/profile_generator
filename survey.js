@@ -28,14 +28,13 @@ const printAnswers = function() {
 const askQuestions = function(arr, qNum) {
   // base case is qNum === 7
   rl.question(arr[qNum] + " ", (answer) => {
+    answerBank[qNum] = answer;
     if (qNum >= arr.length - 1) {
       // console.log('before printAnswers()')
       // console.log('answerBank', answerBank)
-      answerBank[qNum] = answer;
       printAnswers();
       return rl.close();
     }
-    answerBank[qNum] = answer;
     // console.log('qNum', qNum);
     askQuestions(arr, ++qNum);
   })
